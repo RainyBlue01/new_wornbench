@@ -1,0 +1,1371 @@
+@use './form-controls.scss' as formControls;
+
+$person-border: formControls.$form-control-border;
+$person-primary: formControls.$form-control-primary;
+$person-text: #334155;
+$person-label: #475569;
+$person-muted: #94a3b8;
+$person-input-bg: formControls.$form-control-bg;
+$person-focus-ring: formControls.$form-control-focus-shadow;
+
+@mixin dsp-org-tabs {
+  :deep(.arco-tabs-nav) {
+    margin-bottom: 12px;
+  }
+
+  :deep(.arco-tabs-nav::before) {
+    background: #e2e8f0;
+    height: 1px;
+  }
+
+  :deep(.arco-tabs-tab) {
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  :deep(.arco-tabs-tab:hover) {
+    color: #334155;
+  }
+
+  :deep(.arco-tabs-tab-active),
+  :deep(.arco-tabs-tab-active:hover) {
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  :deep(.arco-tabs-nav-ink) {
+    background: rgb(var(--primary-6));
+    height: 2px;
+  }
+
+  :deep(.arco-tabs-content) {
+    padding: 12px 0 0;
+  }
+}
+
+@mixin dsp-org-selection-tag {
+  :deep(.arco-tag) {
+    margin: 2px 4px 2px 0;
+    background: #fff !important;
+    border: 1px solid $person-border !important;
+    color: $person-text !important;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+}
+
+@mixin dsp-org-trigger {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 32px;
+  padding: 1px 4px;
+  color: $person-text;
+  font-size: 13px;
+  background-color: $person-input-bg;
+  border: 1px solid $person-border;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 4px;
+
+  &:hover {
+    border-color: $person-border;
+    background: #fff;
+  }
+
+  &:focus-within {
+    border-color: $person-primary;
+    box-shadow: $person-focus-ring;
+    background: #fff;
+  }
+
+  @include dsp-org-selection-tag;
+}
+
+@mixin dsp-org-panel {
+  // border: 1px solid $person-border;
+  border-radius: 8px;
+  background: #fff;
+}
+
+@mixin dsp-org-split {
+  display: flex;
+  border: 1px solid $person-border;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 280px;
+}
+
+// 顶部全宽搜索（人员选择类组件统一）
+@mixin dsp-org-search {
+  margin-bottom: 12px;
+
+  :deep(.arco-input-wrapper) {
+    width: 100%;
+    background: $person-input-bg;
+    border: 1px solid $person-border;
+    border-radius: 8px;
+    min-height: 40px;
+    transition: all 0.2s;
+  }
+
+  :deep(.arco-input-wrapper:hover) {
+    border-color: $person-border;
+  }
+
+  :deep(.arco-input-wrapper:focus-within) {
+    background: #fff;
+    border-color: $person-primary;
+    box-shadow: $person-focus-ring;
+  }
+
+  :deep(.arco-input) {
+    font-size: 13px;
+    color: $person-text;
+    background: transparent;
+  }
+
+  :deep(.arco-input::placeholder) {
+    color: #cbd5e1;
+  }
+}
+
+// 带列标题的双栏（左部门 / 右成员）
+@mixin dsp-org-split-headed {
+  @include dsp-org-split;
+
+  .col-head {
+    flex-shrink: 0;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    background: #f8fafc;
+    border-bottom: 1px solid $person-border;
+  }
+}
+
+// 可多选部门树（复选框样式，参考 person-leader-dept-panel）
+@mixin dsp-org-dept-checktree {
+  :deep(.arco-tree) {
+    font-size: 12px;
+    color: #334155;
+  }
+
+  :deep(.arco-tree-node) {
+    align-items: center;
+    padding: 2px 0;
+    border-radius: 6px;
+  }
+
+  :deep(.arco-tree-node-title) {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    padding: 4px 6px;
+    border-radius: 6px;
+    line-height: 1.5;
+    transition: background 0.15s;
+  }
+
+  :deep(.arco-tree-node-title:hover) {
+    background: #f8fafc;
+  }
+
+  :deep(.arco-tree-node-title-text) {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  :deep(.arco-checkbox) {
+    display: inline-flex;
+    width: auto;
+    padding: 0;
+    margin: 0 6px 0 0;
+    flex-shrink: 0;
+  }
+
+  :deep(.arco-tree-node-switcher) {
+    color: #94a3b8;
+    font-size: 10px;
+    margin-right: 2px;
+    flex-shrink: 0;
+  }
+
+  :deep(.arco-tree-node-indent-block) {
+    width: 16px;
+  }
+}
+
+
+// 与「创建应用」弹窗一致的表单控件样式（全局 / :deep 两套入口）
+@mixin person-modal-form-items {
+  .arco-form-item {
+    margin-bottom: 16px !important;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .arco-form-item-label-col {
+    margin-bottom: 6px;
+  }
+
+  .arco-form-item-label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: $person-label !important;
+    // margin-bottom: 6px !important;
+    padding: 0 !important;
+    line-height: 1.5;
+
+    &::before {
+      color: #ef4444 !important;
+      margin-right: 2px !important;
+    }
+  }
+
+  .arco-form-item-label-required-symbol {
+    color: #ef4444 !important;
+  }
+
+  .arco-input-wrapper,
+  .arco-textarea-wrapper,
+  .arco-select-view-single,
+  .arco-select-view-multiple,
+  .arco-picker {
+    background: $person-input-bg !important;
+    border: 1px solid $person-border !important;
+    border-radius: 8px !important;
+    transition: all 0.2s !important;
+  }
+
+  .arco-input,
+  .arco-textarea,
+  .arco-select-view-input {
+    font-size: 13px !important;
+    color: $person-text !important;
+    background: transparent !important;
+  }
+
+  .arco-input-wrapper,
+  .arco-picker {
+    min-height: 40px;
+  }
+
+  .arco-select-view-single {
+
+    height: 40px;
+    line-height: 28px;
+  }
+
+  .arco-select-view-value {
+    min-height: auto;
+  }
+
+  .arco-textarea {
+    min-height: 80px !important;
+    padding: 9px 12px !important;
+    resize: vertical !important;
+  }
+
+  .arco-input-wrapper:hover,
+  .arco-textarea-wrapper:hover,
+  .arco-select-view-single:hover,
+  .arco-select-view-multiple:hover,
+  .arco-picker:hover {
+    border-color: $person-border !important;
+  }
+
+  .arco-input-wrapper:focus-within,
+  .arco-textarea-wrapper:focus-within,
+  .arco-select-view-focus,
+  .arco-picker-focused {
+    background: #fff !important;
+    border-color: $person-primary !important;
+    box-shadow: $person-focus-ring !important;
+  }
+
+  .arco-input::placeholder,
+  .arco-textarea::placeholder {
+    color: #cbd5e1 !important;
+  }
+
+  .arco-input-word-limit,
+  .arco-textarea-word-limit {
+    font-size: 11px !important;
+    color: $person-muted !important;
+    text-align: right !important;
+    margin-top: 4px !important;
+  }
+
+  .arco-input-outer .arco-input-wrapper {
+
+    border: 0 !important;
+  }
+
+  .arco-input-outer .arco-input-wrapper:hover {
+
+    border: 0 !important;
+  }
+
+  .arco-input-word-limit.arco-input-error,
+  .arco-textarea-word-limit.arco-textarea-error {
+    color: #ef4444 !important;
+  }
+
+  .arco-select-view {
+    padding: 6px 8px !important;
+  }
+
+  .arco-select-view-inner {
+    padding: 0 !important;
+  }
+
+  .arco-cascader-view {
+    background: $person-input-bg !important;
+    border: 1px solid $person-border !important;
+    border-radius: 8px !important;
+    min-height: 36px;
+    transition: all 0.2s !important;
+  }
+
+  .arco-cascader-view:focus-within,
+  .arco-cascader-view.arco-cascader-view-focus {
+    background: #fff !important;
+    border-color: $person-primary !important;
+    box-shadow: none !important;
+  }
+}
+
+@mixin person-modal-form {
+  @include person-modal-form-items;
+}
+
+.person-modal-form {
+  :deep(.arco-form-item) {
+    margin-bottom: 16px !important;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  :deep(.arco-form-item-label) {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: $person-label !important;
+    margin-bottom: 6px !important;
+    padding: 0 !important;
+    line-height: 1.5;
+
+    &::before {
+      color: #ef4444 !important;
+      margin-right: 2px !important;
+    }
+  }
+
+  :deep(.arco-form-item-label-required-symbol) {
+    color: #ef4444 !important;
+  }
+
+  :deep(.arco-input-wrapper),
+  :deep(.arco-textarea-wrapper),
+  :deep(.arco-select-view-single),
+  :deep(.arco-select-view-multiple),
+  :deep(.arco-picker),
+  :deep(.arco-cascader-view) {
+    background: $person-input-bg !important;
+    border: 1px solid $person-border !important;
+    border-radius: 8px !important;
+    transition: all 0.2s !important;
+  }
+
+  :deep(.arco-input),
+  :deep(.arco-textarea),
+  :deep(.arco-select-view-input) {
+    font-size: 13px !important;
+    color: $person-text !important;
+    background: transparent !important;
+  }
+
+
+
+  :deep(.arco-textarea) {
+    min-height: 80px !important;
+    padding: 9px 12px !important;
+    resize: vertical !important;
+  }
+
+  :deep(.arco-input-wrapper:hover),
+  :deep(.arco-textarea-wrapper:hover),
+  :deep(.arco-select-view-single:hover),
+  :deep(.arco-select-view-multiple:hover),
+  :deep(.arco-picker:hover) {
+    border-color: $person-border !important;
+  }
+
+  :deep(.arco-input-wrapper:focus-within),
+  :deep(.arco-textarea-wrapper:focus-within),
+  :deep(.arco-select-view-focus),
+  :deep(.arco-picker-focused),
+  :deep(.arco-cascader-view:focus-within),
+  :deep(.arco-cascader-view.arco-cascader-view-focus) {
+    background: #fff !important;
+    border-color: $person-primary !important;
+    box-shadow: $person-focus-ring !important;
+  }
+
+  :deep(.arco-input::placeholder),
+  :deep(.arco-textarea::placeholder) {
+    color: #cbd5e1 !important;
+  }
+
+  :deep(.arco-input-word-limit),
+  :deep(.arco-textarea-word-limit) {
+    font-size: 11px !important;
+    color: $person-muted !important;
+    text-align: right !important;
+    margin-top: 4px !important;
+  }
+
+  :deep(.arco-select-view) {
+    padding: 6px 8px !important;
+  }
+
+  :deep(.arco-select-view-inner) {
+    padding: 0 !important;
+  }
+}
+
+@mixin person-modal-shell {
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  background: #fff !important;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+
+  .arco-modal-header {
+    border-bottom: 0 !important;
+    padding: 20px 24px !important;
+    background: #fff !important;
+
+    .arco-modal-title {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+    }
+
+    .arco-modal-close-btn {
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 8px !important;
+      color: $person-muted !important;
+      background: transparent !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.2s !important;
+
+      &:hover {
+        background: #f1f5f9 !important;
+        color: $person-label !important;
+      }
+    }
+  }
+
+  .arco-modal-body {
+    padding: 20px 24px !important;
+    background: #fff !important;
+    @include person-modal-form-items;
+  }
+
+  .arco-modal-footer {
+    border-top: 0 !important;
+    padding: 16px 24px 20px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    background: #fff !important;
+
+    .arco-btn {
+      height: auto !important;
+      padding: 8px 18px !important;
+      border-radius: 10px !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: all 0.2s !important;
+    }
+
+    .arco-btn-secondary {
+      background: #fff !important;
+      border: 1px solid $person-border !important;
+      color: $person-label !important;
+
+      &:hover {
+        background: $person-input-bg !important;
+        border-color: $person-border !important;
+        color: $person-label !important;
+      }
+    }
+
+    .arco-btn-primary {
+      background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1) !important;
+      border: none !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+
+      &:hover {
+        opacity: 0.9 !important;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+}
+
+.person-modal-info {
+  padding: 10px 14px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid $person-border;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.6;
+
+  strong {
+    font-weight: 600;
+    color: #1e293b;
+  }
+}
+
+.person-modal-tip {
+  padding: 10px 14px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid $person-border;
+  margin-top: 16px;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.6;
+
+  .person-modal-tip__icon {
+    color: $person-primary;
+    margin-right: 4px;
+  }
+}
+
+.person-modal-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  margin-bottom: 16px;
+
+  &__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #dc2626;
+    margin: 0 0 4px;
+  }
+
+  &__desc {
+    font-size: 12px;
+    color: #7f1d1d;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.person-modal-upload {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: $person-primary;
+    background: #eff6ff;
+  }
+
+  &__icon {
+    font-size: 28px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  &__title {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+
+  &__hint {
+    font-size: 12px;
+    color: $person-muted;
+    margin: 0;
+  }
+}
+
+.person-tag-btn {
+  display: block;
+  width: 100%;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  white-space: nowrap;
+
+  &:hover {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #bfdbfe;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1);
+    color: #fff;
+    border-color: transparent;
+    font-weight: 600;
+  }
+}
+
+.person-role-add-toolbar {
+  margin-bottom: 10px;
+}
+
+.person-role-add-panel {
+  flex: 1;
+  min-height: 120px;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.person-role-pick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.person-role-pick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #f1f5f9;
+  margin: 0;
+  transition: all 0.15s;
+  background: #fff;
+
+  &:hover {
+    border-color: #bfdbfe;
+    background: #f8fafc;
+  }
+
+  &.is-selected,
+  &:has(.arco-checkbox-checked) {
+    border-color: rgb(var(--primary-6));
+    background: #eff6ff;
+  }
+
+  :deep(.arco-checkbox) {
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+
+  :deep(.arco-checkbox-icon) {
+    margin-top: 0;
+  }
+
+  :deep(.arco-checkbox-label) {
+    display: none;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.4;
+  }
+
+  &__meta {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  &__phone {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+}
+
+.person-role-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 24px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.person-modal-split {
+  @include dsp-org-split;
+  gap: 0;
+  min-height: 360px;
+
+  &__left {
+    width: 180px;
+    flex-shrink: 0;
+    border-right: 1px solid #e2e8f0;
+    padding: 10px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    max-height: 360px;
+    overflow: hidden;
+  }
+
+  &__all-dept {
+    flex-shrink: 0;
+    margin-bottom: 6px;
+  }
+
+  &__tree {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 2px;
+
+    :deep(.arco-tree) {
+      font-size: 12px;
+    }
+
+    :deep(.arco-tree-node) {
+      border-radius: 6px;
+    }
+
+    :deep(.arco-tree-node-title) {
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    :deep(.arco-tree-node-title:hover) {
+      background: #f8fafc;
+    }
+
+    :deep(.arco-tree-node-selected .arco-tree-node-title) {
+      background: #eff6ff;
+      color: #2563eb;
+      font-weight: 500;
+    }
+  }
+
+  &__right {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 10px 12px;
+  }
+
+  &__label {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+}
+
+@mixin person-drawer-shell {
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1) !important;
+  background: #fff !important;
+
+  .arco-drawer-header {
+    border-bottom: 1px solid #f1f5f9 !important;
+    padding: 20px 24px !important;
+    background: #fff !important;
+    margin-bottom: 0 !important;
+    height: auto !important;
+
+    .arco-drawer-title {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+    }
+
+    .arco-drawer-close-btn {
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 8px !important;
+      color: $person-muted !important;
+      background: transparent !important;
+      transition: all 0.2s !important;
+
+      &:hover {
+        background: #f1f5f9 !important;
+        color: $person-label !important;
+      }
+    }
+  }
+
+  .arco-drawer-body {
+    padding: 20px 24px !important;
+    background: #fff !important;
+    @include person-modal-form-items;
+  }
+
+  .arco-drawer-footer {
+    border-top: none !important;
+    padding: 16px 24px 20px !important;
+    background: #fff !important;
+
+    .arco-btn {
+      height: auto !important;
+      padding: 8px 18px !important;
+      border-radius: 10px !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: all 0.2s !important;
+    }
+
+    .arco-btn-secondary,
+    .arco-btn:not(.arco-btn-primary) {
+      background: #fff !important;
+      border: 1px solid $person-border !important;
+      color: $person-label !important;
+
+      &:hover {
+        background: $person-input-bg !important;
+        border-color: $person-border !important;
+        color: $person-label !important;
+      }
+    }
+
+    .arco-btn-primary {
+      background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1) !important;
+      border: none !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+
+      &:hover {
+        opacity: 0.9 !important;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  // 人员/部门选择类自定义触发框，视觉与输入框一致
+  .person-drawer-picker {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    min-height: 36px;
+    padding: 4px 12px;
+    background: $person-input-bg !important;
+    border: 1px solid $person-border !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    transition: all 0.2s !important;
+    box-sizing: border-box;
+
+    &:hover {
+      border-color: $person-border !important;
+    }
+
+    &:focus-within {
+      background: #fff !important;
+      border-color: $person-primary !important;
+    }
+
+    .person-drawer-picker__placeholder {
+      padding: 0;
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 28px;
+    }
+  }
+}
+
+.person-modal-wrap,
+.create-app-modal {
+  @include person-modal-shell;
+
+  .icon-form-item {
+    margin-bottom: 0 !important;
+  }
+}
+
+.person-drawer-wrap {
+  @include person-drawer-shell;
+  background: rgba(0, 0, 0, 0) !important;
+}
+
+// 抽屉内自定义选择触发框（与输入框一致，不依赖 drawer 根 class 是否挂载成功）
+.arco-drawer .person-drawer-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 12px;
+  background: $person-input-bg !important;
+  border: 1px solid $person-border !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: all 0.2s !important;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: $person-border !important;
+    background: $person-input-bg !important;
+  }
+
+  &:active {
+    background: #fff !important;
+    border-color: $person-primary !important;
+  }
+
+  .person-drawer-picker__placeholder,
+  .setTip {
+    padding: 0;
+    font-size: 13px !important;
+    color: #cbd5e1 !important;
+    line-height: 34px;
+  }
+}
+
+.person-modal-wrap {
+  .person-role-add-panel {
+    :deep(.arco-spin) {
+      display: block;
+      width: 100%;
+    }
+
+    :deep(.arco-checkbox-group) {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+  }
+
+  .person-role-add-toolbar {
+    @include person-modal-form;
+
+    :deep(.arco-input-wrapper) {
+      width: 100%;
+    }
+  }
+
+  .person-leader-person-panel {
+    :deep(.arco-spin) {
+      display: block;
+      width: 100%;
+    }
+
+    :deep(.arco-spin-children) {
+      width: 100%;
+    }
+  }
+}
+
+.person-modal-scroll-list {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  padding: 8px;
+
+  > :deep(.arco-checkbox-group) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  > :deep(.arco-checkbox-group) .arco-checkbox,
+  > :deep(.arco-checkbox) {
+    display: flex;
+    padding: 6px 8px;
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.person-modal-role-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-height: 160px;
+  overflow-y: auto;
+  border: 1px solid $person-border;
+  border-radius: 8px;
+  padding: 10px;
+  background: $person-input-bg;
+}
+
+.person-modal-app-list {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.person-modal-app-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 8px;
+  border-bottom: 1px solid #f1f5f9;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1e293b;
+    margin: 0 0 2px;
+  }
+
+  &__roles {
+    font-size: 11px;
+    color: $person-muted;
+  }
+}
+
+.person-modal-hint {
+  font-size: 12px;
+  color: $person-muted;
+  margin: 6px 0 0;
+}
+
+.person-modal-person-line {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 12px;
+
+  strong {
+    color: #1e293b;
+    font-weight: 600;
+  }
+}
+
+.person-modal-split__left--leader {
+  width: 220px;
+  min-width: 220px;
+  padding-right: 10px;
+
+  .leader-person-picker {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+.leader-person-picker {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+
+  &__search {
+    flex-shrink: 0;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+}
+
+.person-leader-person-panel {
+  flex: 1;
+  min-height: 120px;
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  padding: 6px;
+  background: #fff;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.person-leader-pick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.person-leader-pick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #f1f5f9;
+  margin: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: #bfdbfe;
+    background: #f8fafc;
+  }
+
+  &.is-active {
+    border-color: rgb(var(--primary-6));
+    background: #eff6ff;
+    box-shadow: 0 0 0 1px rgb(var(--primary-6));
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #6366f1 0%, rgb(var(--primary-6)) 100%);
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.4;
+  }
+
+  &__meta {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  &__dept {
+    display: block;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.person-leader-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 24px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.person-modal-split.leader-create-body {
+  min-height: 360px;
+  align-items: stretch;
+
+  .person-modal-split__right {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+}
+
+.dsp-org-tabs {
+  @include dsp-org-tabs;
+}
+
+.dsp-org-trigger {
+  @include dsp-org-trigger;
+}
+
+.dsp-org-panel {
+  @include dsp-org-panel;
+}
+
+.dsp-org-split {
+  @include dsp-org-split;
+}
+
+.person-leader-dept-panel {
+  flex: 1;
+  min-height: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: #fff;
+  box-sizing: border-box;
+
+  :deep(.arco-tree) {
+    font-size: 12px;
+    color: #334155;
+  }
+
+  :deep(.arco-tree-node) {
+    align-items: center;
+    padding: 2px 0;
+  }
+
+  :deep(.arco-tree-node-title) {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    padding: 4px 6px;
+    border-radius: 6px;
+    line-height: 1.5;
+    transition: background 0.15s;
+  }
+
+  :deep(.arco-tree-node-title:hover) {
+    background: #f8fafc;
+  }
+
+  :deep(.arco-tree-node-title-text) {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  :deep(.arco-checkbox) {
+    display: inline-flex;
+    width: auto;
+    padding: 0;
+    margin: 0 6px 0 0;
+    flex-shrink: 0;
+  }
+
+  :deep(.arco-tree-node-switcher) {
+    color: #94a3b8;
+    font-size: 10px;
+    margin-right: 2px;
+    flex-shrink: 0;
+  }
+
+  :deep(.arco-tree-node-indent-block) {
+    width: 16px;
+  }
+
+  :deep(.arco-tree-node-disable-checkbox) {
+    opacity: 0.55;
+
+    .arco-tree-node-title {
+      color: #94a3b8;
+    }
+  }
+}
+
+.person-leader-dept-label {
+  font-size: 12px;
+  color: #334155;
+}
+
+.person-leader-dept-tag {
+  margin-left: 4px;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+// 未使用 person-modal-wrap 的 Arco Modal，表单样式与创建应用弹窗对齐
+.arco-modal:not(.person-modal-wrap):not(.create-app-modal):not(.arco-modal-simple) {
+  .arco-modal-body .arco-form {
+    @include person-modal-form-items;
+  }
+
+}
+
+// 未使用 person-drawer-wrap 的 Drawer，表单样式与弹窗对齐
+.arco-drawer:not(.person-drawer-wrap) {
+  .arco-drawer-body .arco-form {
+    @include person-modal-form-items;
+  }
+}

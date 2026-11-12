@@ -1,0 +1,700 @@
+/* 表单设计器：与 设计应用.html 原型一致的视觉规范 */
+
+@use './form-controls.scss' as formControls;
+
+$form-designer-header-height: 64px;
+$form-designer-left-width: 240px;
+$form-designer-right-width: 300px;
+$form-designer-bg: #eef1f6;
+$form-designer-border: #e2e8f0;
+$form-designer-primary: rgb(var(--primary-6));
+
+.form-designer-page {
+  min-height: 100vh;
+  background: $form-designer-bg;
+  overflow: hidden;
+}
+
+.form-designer-body {
+  display: flex;
+  height: calc(100vh - #{$form-designer-header-height} - 1px);
+  overflow: hidden;
+}
+
+/* ---------- 顶部 Header ---------- */
+
+.form-designer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $form-designer-header-height;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $form-designer-border;
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.form-designer-header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.form-designer-header__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.form-designer-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  line-height: 1.4;
+
+  &:hover {
+    background: #eff6ff;
+    color: $form-designer-primary;
+    border-color: #dbeafe;
+  }
+}
+
+.form-designer-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #94a3b8;
+
+  &__sep {
+    color: #cbd5e1;
+  }
+
+  &__current {
+    color: #334155;
+    font-weight: 600;
+  }
+}
+
+.form-designer-step-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.form-designer-step-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #94a3b8;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  padding: 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #64748b;
+  }
+
+  &--active {
+    color: $form-designer-primary;
+    font-weight: 600;
+    cursor: default;
+  }
+
+  &--done {
+    color: #22c55e;
+  }
+}
+
+.form-designer-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #94a3b8;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+
+  .form-designer-step-item--active & {
+    background: #dbeafe;
+    color: $form-designer-primary;
+  }
+
+  .form-designer-step-item--done & {
+    background: #f0fdf4;
+    color: #22c55e;
+  }
+}
+
+.form-designer-step-line {
+  width: 24px;
+  height: 1px;
+  background: #e2e8f0;
+  flex-shrink: 0;
+}
+
+/* ---------- 左侧组件库 ---------- */
+
+.form-designer-sidebar-left {
+  width: $form-designer-left-width;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid $form-designer-border;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.form-designer-sidebar-search {
+  padding: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #f8fafc;
+  flex-shrink: 0;
+
+  @include formControls.unified-form-controls-deep;
+}
+
+.form-designer-component-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.form-designer-component-group+.form-designer-component-group {
+  border-top: 1px solid #f1f5f9;
+}
+
+.form-designer-component-group-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+  padding: 12px 16px 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-designer-component-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: #475569;
+  cursor: grab;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    background: #f8fafc;
+    color: #2563eb;
+    border-left-color: $form-designer-primary;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  i {
+    width: 18px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  &:hover i {
+    color: $form-designer-primary;
+  }
+}
+
+/* ---------- 中间画布 ---------- */
+
+.form-designer-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.form-designer-canvas-wrap {
+  flex: 1;
+  min-width: 0;
+  background: $form-designer-bg;
+  overflow-y: auto;
+  padding: 24px;
+  padding-bottom: 72px;
+}
+
+.form-designer-canvas-inner {
+  // max-width: 680px;
+  margin: 0 auto;
+}
+
+.form-designer-canvas-paper {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid $form-designer-border;
+  // min-height: 600px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+
+  .drawing-board {
+    width: 100%;
+    background: #fff;
+    min-height: calc(100vh - 162px);
+  }
+}
+
+/* ---------- 右侧属性面板 ---------- */
+
+.form-designer-sidebar-right {
+  width: $form-designer-right-width;
+  flex-shrink: 0;
+  background: #fff;
+  border-left: 1px solid $form-designer-border;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.form-designer-right-tabs {
+  display: flex;
+  border-bottom: 1px solid $form-designer-border;
+  flex-shrink: 0;
+}
+
+.form-designer-right-tab {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: inherit;
+
+  &:hover {
+    color: #334155;
+  }
+
+  &--active {
+    color: #2563eb;
+    border-bottom-color: $form-designer-primary;
+    font-weight: 600;
+  }
+}
+
+.form-designer-right-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.form-designer-prop-group {
+  margin-bottom: 20px;
+
+  &--compact {
+    margin-bottom: 0;
+  }
+}
+
+.form-designer-prop-group:not(.form-designer-prop-group--compact)+.form-designer-prop-group--compact {
+  margin-top: 8px;
+}
+
+.form-designer-prop-group--compact+.form-designer-prop-group:not(.form-designer-prop-group--compact) {
+  margin-top: 16px;
+}
+
+.form-designer-prop-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-designer-prop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.form-designer-prop-link {
+  font-size: 12px;
+  color: $form-designer-primary;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  &:hover {
+    color: #2563eb;
+  }
+}
+
+.form-designer-prop-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1px solid $form-designer-border;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #334155;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+  }
+}
+
+.form-designer-prop-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.form-designer-prop-toggle-label {
+  font-size: 13px;
+  color: #475569;
+}
+
+.form-designer-prop-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+.form-designer-prop-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 20px 0 12px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.form-designer-prop-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  width: 100%;
+  font-size: 13px;
+  color: $form-designer-primary;
+  cursor: pointer;
+  line-height: 1.4;
+
+  :deep(.arco-checkbox) {
+    align-items: flex-start;
+  }
+
+  :deep(.arco-checkbox-label) {
+    color: $form-designer-primary;
+    line-height: 1.4;
+  }
+
+  &--stacked {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+}
+
+.form-designer-prop-check-extra {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-designer-perm-table-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.form-designer-perm-th-field {
+  flex: 1;
+}
+
+.form-designer-perm-th-action {
+  width: 48px;
+  // text-align: center;
+  flex-shrink: 0;
+}
+
+.form-designer-perm-table-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: #334155;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.form-designer-perm-td-field {
+  flex: 1;
+  padding-right: 8px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-designer-perm-td-action {
+  width: 48px;
+  // text-align: center;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+}
+
+.form-designer-btn-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1px solid $form-designer-border;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #334155;
+  background: #fff;
+  transition: all 0.2s;
+
+  &+& {
+    margin-top: 8px;
+  }
+
+  &.active {
+    border-color: $form-designer-primary;
+    background: #eff6ff;
+  }
+
+  .item-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .item-right {
+    cursor: pointer;
+    color: #94a3b8;
+
+    &:hover {
+      color: $form-designer-primary;
+    }
+  }
+}
+
+.form-designer-sidebar-right {
+
+  :deep(.w-e-toolbar),
+  :deep(.w-e-text-container),
+  :deep(.wangEditor) {
+    border-radius: 8px;
+    background: #fff !important;
+    border-color: $form-designer-border !important;
+  }
+
+  :deep(.wangEditor),
+  :deep(.form-item-body:has(.wangEditor)) {
+    overflow: visible !important;
+  }
+
+  @include formControls.unified-form-controls-deep;
+
+  :deep(.arco-form-item-label) {
+    font-size: 12px;
+    font-weight: 500;
+    color: #475569;
+  }
+}
+
+/* ---------- 底部操作栏 ---------- */
+
+.form-designer-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: calc($form-designer-left-width + 1px);
+  right: calc($form-designer-right-width + 1px);
+  background: #fff;
+  border-top: 1px solid $form-designer-border;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.form-designer-status-info {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  i {
+    font-size: 10px;
+  }
+
+  .status-count {
+    color: $form-designer-primary;
+    font-weight: 600;
+  }
+
+  .status-save {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .status-editing {
+    color: #22c55e;
+    font-weight: 600;
+  }
+}
+
+.form-designer-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-bar {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: inherit;
+  line-height: 1.4;
+  white-space: nowrap;
+
+  &--ghost {
+    background: transparent;
+    color: #64748b;
+
+    &:hover:not(:disabled) {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
+  &--primary {
+    background: $form-designer-primary;
+    color: #fff;
+    padding: 8px 20px;
+
+    &:hover:not(:disabled) {
+      background: #2563eb;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.form-designer-btn-ghost {
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  background: transparent !important;
+  color: #64748b !important;
+  border: 1px solid $form-designer-border !important;
+  height: auto !important;
+
+  &:hover {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+  }
+}
+
+.form-designer-btn-primary {
+  padding: 8px 20px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  background: $form-designer-primary !important;
+  color: #fff !important;
+  border: none !important;
+  height: auto !important;
+
+  &:hover {
+    background: #2563eb !important;
+  }
+}
+
+/* ---------- 预览弹窗（详见 seeModel.vue 全局样式） ---------- */

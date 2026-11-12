@@ -1,0 +1,660 @@
+@use "./textColor.scss" as textColor;
+
+.sys-settings-page {
+  background: #f1f5f9;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.sys-settings-main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 24px;
+
+  &.config-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}
+
+.sys-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.config-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+}
+
+.card-body {
+  padding: 16px 20px;
+}
+
+.btn-ghost-sm {
+  background: #f8fafc !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  height: auto !important;
+  padding: 7px 14px !important;
+
+  &:hover {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+  }
+}
+
+// Category list
+.cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: #fff;
+  transition: all 0.15s;
+
+  &:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+
+    .cat-actions {
+      opacity: 1;
+    }
+  }
+
+  &.sortable-ghost {
+    opacity: 0.5;
+    background: #eff6ff;
+    border-color: rgb(var(--primary-6));
+  }
+}
+
+.cat-drag {
+  color: #cbd5e1;
+  cursor: grab;
+  font-size: 14px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.cat-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cat-name {
+  flex: 1;
+  font-size: 13px;
+  color: #334155;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cat-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-left: 4px;
+}
+
+.cat-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.cat-action-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+
+  &:hover {
+    background: #fee2e2;
+    color: #ef4444;
+  }
+
+  &.edit:hover {
+    background: #eff6ff;
+    color: textColor.$ThemeTextColor;
+  }
+}
+
+// Icon grid
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+}
+
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 8px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  background: #fff;
+  position: relative;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: #dbeafe;
+    background: #f8fafc;
+
+    .icon-delete {
+      opacity: 1;
+    }
+  }
+}
+
+.icon-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.icon-delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 0;
+
+  &:hover {
+    background: #fee2e2;
+    color: #ef4444;
+  }
+}
+
+.icon-add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 8px;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s;
+  // min-height: 86px;
+  color: #64748b;
+  font-size: 12px;
+
+  i {
+    font-size: 24px;
+    color: textColor.$ThemeTextColor;
+  }
+
+  &:hover {
+    border-color: textColor.$ThemeTextColor;
+    background: #eff6ff;
+  }
+}
+
+.icon-upload-hidden {
+  display: none;
+}
+
+// Config sidebar
+.config-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+
+  .card-body {
+    padding: 12px;
+  }
+}
+
+.config-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+
+  i {
+    width: 16px;
+    text-align: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: #f8fafc;
+    color: #334155;
+  }
+
+  &.active {
+    background: #eff6ff;
+    color: #2563eb;
+    border-left-color: textColor.$ThemeTextColor;
+    font-weight: 600;
+  }
+}
+
+.config-menu-item+.config-menu-item {
+  margin-top: 4px;
+}
+
+// Form sections
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .line {
+    flex: 1;
+    height: 1px;
+    background: #f1f5f9;
+  }
+
+  &--spaced {
+    margin-top: 20px;
+  }
+}
+
+.sys-form-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #c2410c;
+  font-size: 13px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+
+  i {
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+}
+
+.logo-upload {
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+  border: 2px dashed #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #f8fafc;
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    border-color: textColor.$ThemeTextColor;
+    background: #eff6ff;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  i {
+    font-size: 24px;
+    color: #94a3b8;
+  }
+
+  p {
+    font-size: 11px;
+    color: #94a3b8;
+    margin: 4px 0 0;
+  }
+}
+
+.logo-upload-tips {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+// 基础资源页顶栏 Tab（内部成员 / 外部成员）配色与原型一致
+.sys-settings-page {
+  :deep(.ub-nav-btn) {
+    background: transparent;
+    color: #64748b;
+
+    &:hover:not(.ub-nav-btn--active) {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    &.ub-nav-btn--active {
+      background: #dbeafe;
+      color: #2563eb;
+      font-weight: 600;
+    }
+  }
+}
+
+.btn-primary-sm {
+  background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  height: auto !important;
+  padding: 7px 14px !important;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+}
+
+// 人员分页（内部成员、外部成员、职位/角色等共用）
+.person-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+
+  &__count {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-right: auto;
+  }
+
+  &__jump {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #64748b;
+
+    input {
+      border-radius: 8px;
+      font-size: 12px;
+      outline: none;
+      color: #334155;
+
+      &:focus {
+        border-color: rgb(var(--primary-6));
+      }
+    }
+
+    button {
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+
+      &:hover {
+        background: #e2e8f0;
+      }
+    }
+  }
+
+  :deep(.arco-pagination-item) {
+    min-width: 28px;
+    height: 28px;
+    line-height: 26px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    color: #64748b;
+    font-size: 12px;
+  }
+
+  :deep(.arco-pagination-item-active) {
+    background: rgb(var(--primary-6));
+    color: #fff;
+    border-color: rgb(var(--primary-6));
+  }
+
+  :deep(.arco-pagination-item:not(.arco-pagination-item-active):hover) {
+    border-color: rgb(var(--primary-6));
+    color: rgb(var(--primary-6));
+  }
+}
+
+// 内部成员 / 人员管理
+.person-page {
+  --person-layout-height: calc(100vh - 105px);
+  --person-table-max-height: calc(var(--person-layout-height) - 146px);
+
+  .sys-settings-main.config-layout {
+    padding-bottom: 20px;
+  }
+
+  .person-table {
+
+    :deep(.arco-table-container),
+    :deep(.arco-table-content) {
+      border: none;
+      border-radius: 0;
+    }
+
+    :deep(.arco-table-th) {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 600;
+      border-bottom: 1px solid #e2e8f0;
+      border-right: none !important;
+      border-left: none !important;
+      border-top: none !important;
+      // padding: 10px 12px;
+    }
+
+    :deep(.arco-table-td) {
+      font-size: 13px;
+      color: #334155;
+      border-bottom: 1px solid #f1f5f9;
+      border-right: none !important;
+      border-left: none !important;
+      border-top: none !important;
+      // padding: 10px 12px;
+      background: transparent;
+    }
+
+    :deep(.arco-table-border .arco-table-th),
+    :deep(.arco-table-border .arco-table-td) {
+      border-right: none;
+    }
+
+    :deep(.arco-table-tr:hover .arco-table-td) {
+      background: #f8fafc;
+    }
+  }
+
+  .person-cell-email {
+    color: #64748b;
+    font-size: 12px;
+  }
+
+  .person-dept-extra {
+    font-size: 11px;
+    color: rgb(var(--primary-6));
+    margin-left: 4px;
+  }
+
+  .person-name {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .person-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    vertical-align: middle;
+
+    &--leader {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    &--part {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+  }
+
+  .person-batch-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-size: 13px;
+    color: #475569;
+
+    strong {
+      color: #2563eb;
+    }
+  }
+
+  .person-actions {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
+
+  .sg-action-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0;
+    transition: all 0.15s;
+
+    &:hover {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    &.edit:hover {
+      background: #eff6ff;
+      color: rgb(var(--primary-6));
+    }
+  }
+}
+
+// Arco overrides within settings pages
+.sys-settings-page {
+
+  .arco-input-wrapper,
+  .arco-textarea-wrapper {
+    border-radius: 8px !important;
+  }
+
+
+  .arco-switch-checked {
+    background-color: textColor.$ThemeTextColor;
+  }
+
+  .arco-form-item-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+  }
+}

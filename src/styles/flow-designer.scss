@@ -1,0 +1,721 @@
+/* 流程设计器：与 流程设计.html 原型一致的视觉规范 */
+
+$flow-header-height: 64px;
+$flow-left-width: 240px;
+$flow-right-width: 300px;
+$flow-bottom-bar-height: 52px;
+$flow-bg: #eef1f6;
+$flow-border: #e2e8f0;
+$flow-primary: rgb(var(--primary-6));
+
+.flow-designer-page {
+  min-height: 100vh;
+  background: $flow-bg;
+  overflow: hidden;
+
+  &--no-right {
+    .flow-designer-bottom-bar {
+      right: 0;
+    }
+  }
+}
+
+.flow-designer-body {
+  display: flex;
+  height: calc(100vh - #{$flow-header-height} - 1px);
+  overflow: hidden;
+}
+
+.flow-designer-sidebar-left {
+  width: $flow-left-width;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid $flow-border;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.flow-designer-sidebar-right {
+  width: $flow-right-width;
+  flex-shrink: 0;
+  background: #fff;
+  border-left: 1px solid $flow-border;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.flow-designer-canvas {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding-bottom: $flow-bottom-bar-height;
+  background: $flow-bg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-designer-canvas-outer {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  background: $flow-bg;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.flow-designer-canvas-inner {
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 24px calc(#{$flow-bottom-bar-height} + 48px);
+  box-sizing: border-box;
+  transition: transform 0.15s ease-out;
+}
+
+/* ---------- 流程版本列表 ---------- */
+
+.flow-version-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.flow-version-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+
+  i {
+    margin-right: 6px;
+    color: #94a3b8;
+    font-size: 12px;
+  }
+}
+
+.flow-version-new-btn {
+  font-size: 12px;
+  color: $flow-primary;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  padding: 0;
+
+  &:hover {
+    color: #2563eb;
+  }
+}
+
+.flow-version-list {
+  flex: 1;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.flow-version-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    background: #f8fafc;
+  }
+
+  &.active {
+    background: #eff6ff;
+    border-left-color: $flow-primary;
+  }
+}
+
+.flow-version-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+
+  &--current {
+    background: #dbeafe;
+    color: $flow-primary;
+  }
+
+  &--published {
+    background: #f0fdf4;
+    color: #22c55e;
+  }
+
+  &--history {
+    background: #f1f5f9;
+    color: #94a3b8;
+  }
+}
+
+.flow-version-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.flow-version-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flow-version-meta {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.flow-version-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  flex-shrink: 0;
+
+  &--current {
+    background: #dbeafe;
+    color: $flow-primary;
+  }
+
+  &--published {
+    background: #f0fdf4;
+    color: #22c55e;
+  }
+}
+
+/* ---------- 底部操作栏 ---------- */
+
+.flow-designer-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: calc($flow-left-width + 1px);
+  right: calc($flow-right-width + 1px);
+  background: #fff;
+  border-top: 1px solid $flow-border;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.flow-designer-status-info {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  i {
+    font-size: 10px;
+  }
+
+  .status-count {
+    color: $flow-primary;
+    font-weight: 600;
+  }
+
+  .status-save {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .status-editing {
+    color: #22c55e;
+    font-weight: 600;
+  }
+}
+
+.flow-designer-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ---------- 画布节点（scoped to flow-designer-page） ---------- */
+
+.flow-designer-page,
+.flow-chart-wrapper {
+  .flow-canvas-outer {
+    background: $flow-bg;
+  }
+
+  .flow-canvas-inner {
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 24px 48px;
+    box-sizing: border-box;
+    transition: transform 0.15s ease-out;
+  }
+
+  .dingflow-design {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto !important;
+    min-height: min-content;
+  }
+
+  .box-scale-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    min-height: min-content;
+  }
+
+  .box-scale {
+    transform-origin: center top;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: fit-content !important;
+    min-width: min-content;
+    flex-wrap: nowrap !important;
+    padding: 40px 0 !important;
+  }
+
+  .dingflow-design .node-wrap {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 320px;
+  }
+
+  .dingflow-design .branch-wrap {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: auto !important;
+  }
+
+  .dingflow-design .branch-box-wrap {
+    width: auto !important;
+    min-width: min-content;
+    flex-shrink: 0;
+  }
+
+  .dingflow-design .branch-box {
+    border-top: 2px solid #cbd5e1 !important;
+    border-bottom: 2px solid #cbd5e1 !important;
+    width: auto !important;
+    min-width: min-content;
+    overflow: visible !important;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dingflow-design .branch-box .col-box {
+    flex-shrink: 0 !important;
+    min-width: 280px;
+    overflow: visible !important;
+    background: $flow-bg !important;
+  }
+
+  .dingflow-design .branch-box .col-box .node-wrap {
+    width: auto !important;
+    min-width: 220px;
+    max-width: 320px;
+  }
+
+  .dingflow-design .branch-box .col-box .flow-node-wrap {
+    width: 100%;
+    min-width: 220px;
+    max-width: 320px;
+  }
+
+  .dingflow-design .branch-box .col-box .node-wrap-box.flow-node {
+    width: 100% !important;
+    min-width: 220px;
+    max-width: 320px;
+    box-sizing: border-box;
+  }
+
+  .flow-node-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    z-index: 10;
+  }
+
+  .flow-node-wrap--terminal {
+    align-items: center;
+  }
+
+  .flow-start-end {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.start {
+      background: #f0fdf4;
+      color: #22c55e;
+      border: 2px solid #bbf7d0;
+
+      &.active {
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+      }
+    }
+
+    &.end {
+      background: #f1f5f9;
+      color: #94a3b8;
+      border: 2px solid #e2e8f0;
+    }
+  }
+
+  .flow-start-label {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  .node-wrap-box.flow-node {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 10px;
+    width: 100% !important;
+    max-width: 320px;
+    min-height: auto !important;
+    border-radius: 10px;
+    border: 1px solid $flow-border;
+    background: #fff;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 10;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border-color: #cbd5e1;
+    }
+
+    &.active {
+      border-color: $flow-primary;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12);
+    }
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
+
+    .title {
+      display: none !important;
+    }
+
+    .content {
+      display: none !important;
+    }
+
+    .node-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+
+      &.start {
+        background: #f0fdf4;
+        color: #22c55e;
+      }
+
+      &.approve {
+        background: #dbeafe;
+        color: $flow-primary;
+      }
+
+      &.fill {
+        background: #f5f3ff;
+        color: #7c3aed;
+      }
+
+      &.cc {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      &.branch {
+        background: #fef2f2;
+        color: #ef4444;
+      }
+
+      &.link {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+
+      &.plugin {
+        background: #dcfce7;
+        color: #16a34a;
+      }
+    }
+
+    .node-body {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .node-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1e293b;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .node-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 2px;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+    }
+
+    .node-delete {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      line-height: 1;
+    }
+
+    &:hover .node-delete {
+      display: flex;
+    }
+
+    .node-state-block {
+      width: 8px;
+      height: 28px;
+      border-radius: 4px;
+      flex-shrink: 0;
+
+      &.state-1 {
+        background-color: #22c55e;
+      }
+
+      &.state-2 {
+        background-color: $flow-primary;
+      }
+
+      &.state-3 {
+        background-color: #cbd5e1;
+      }
+    }
+  }
+
+  .add-node-btn-box {
+    position: relative;
+    z-index: 5;
+
+    &::before {
+      background-color: #cbd5e1 !important;
+      width: 2px !important;
+      z-index: 0;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid #cbd5e1;
+      z-index: 0;
+    }
+
+    .add-node-btn {
+      width: 100% !important;
+      max-width: 320px;
+      padding: 0 !important;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .btn {
+        width: 22px !important;
+        height: 22px !important;
+        min-width: 22px !important;
+        padding: 0 !important;
+        background: $flow-primary !important;
+        border: 2px solid #fff !important;
+        border-radius: 50% !important;
+        box-shadow: 0 1px 6px rgba(59, 130, 246, 0.4) !important;
+        z-index: 10;
+
+        &:hover {
+          transform: scale(1.15) !important;
+          background: #2563eb !important;
+        }
+
+        :deep(.arco-icon),
+        :deep(svg) {
+          color: #fff;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .dingflow-design .auto-judge {
+    border-radius: 10px !important;
+    border: 1px solid $flow-border !important;
+    background: #fff !important;
+
+    &::after {
+      border-radius: 10px !important;
+    }
+
+    &.active::after,
+    &:hover::after {
+      border-color: $flow-primary !important;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.12) !important;
+    }
+  }
+
+  .dingflow-design .branch-box .col-box:before,
+  .dingflow-design .condition-node-box:before {
+    background-color: #cbd5e1 !important;
+  }
+
+  .top-left-cover-line,
+  .top-right-cover-line,
+  .bottom-left-cover-line,
+  .bottom-right-cover-line {
+    background-color: $flow-bg !important;
+  }
+
+  .dingflow-design .add-branch {
+    border-radius: 8px;
+    color: $flow-primary;
+    border-color: #bfdbfe;
+    background: #eff6ff;
+  }
+}
+
+.flow-chart-wrapper {
+  .add-node-btn-box .add-node-btn .btn {
+    display: none !important;
+  }
+}
+
+/* ---------- 添加节点菜单（popover） ---------- */
+
+.flow-add-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 160px;
+}
+
+.flow-add-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+
+  i,
+  :deep(.arco-icon) {
+    width: 18px;
+    text-align: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: #f8fafc;
+  }
+}
+
+.flow-designer-page .arco-popover-popup-content:has(.flow-add-menu) {
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}

@@ -1,0 +1,43 @@
+// 旧内核表头使用系统字体的常规字重，避免单一 Regular WebFont 的合成加粗。
+// 不修改正文和表格容器的定位，保留固定列、横向滚动及列宽拖动。
+html.legacy-chromium-table-text {
+  .arco-table-th,
+  .arco-table-th .arco-table-cell,
+  .arco-table-th .arco-table-th-title,
+  .arco-table-th .arco-auto-tooltip-content {
+    font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC",
+      "WenQuanYi Micro Hei", "PingFang SC", sans-serif !important;
+    font-weight: 400 !important;
+    font-synthesis: none;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: auto;
+    text-shadow: none;
+  }
+}
+
+// 仅独立表头的固定单元格绕开旧内核 sticky 文本合成层；滚动值由兼容模块同步。
+html.legacy-chromium-table-text .arco-table-header.legacy-fixed-header-text {
+  .arco-table-th.arco-table-col-fixed-left {
+    position: relative !important;
+    left: var(--legacy-header-scroll-left, 0px) !important;
+    right: auto !important;
+  }
+
+  .arco-table-th.arco-table-col-fixed-right {
+    position: relative !important;
+    right: var(--legacy-header-scroll-right, 0px) !important;
+    left: auto !important;
+  }
+}
+
+// 正文清晰、表头模糊时的同字体对比模式，不调整字号、颜色或表格布局。
+html.legacy-chromium-table-text.legacy-table-text-body-font {
+  .arco-table-th,
+  .arco-table-th .arco-table-cell,
+  .arco-table-th .arco-table-th-title,
+  .arco-table-th .arco-auto-tooltip-content {
+    font-family: "Alibaba PuHuiTi 2.0-55 Regular", "Microsoft YaHei",
+      "Noto Sans CJK SC", "PingFang SC", sans-serif !important;
+  }
+}

@@ -1,0 +1,221 @@
+/**
+ * 全局弹窗样式优化
+ * 为所有 Arco Design Modal 和 Drawer 组件添加圆角设计
+ */
+ .arco-modal-mask,
+ .arco-drawer-mask {
+   background-color: rgba(0, 0, 0, 0.45) !important;
+   backdrop-filter: blur(2px) !important;
+   -webkit-backdrop-filter: blur(2px) !important;
+ }
+ 
+// Modal 弹窗圆角样式
+.arco-modal {
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  background: #fff !important;
+  overflow: hidden;
+
+  // Modal 头部
+  .arco-modal-header {
+    border-bottom: 0 !important;
+    padding: 20px 24px !important;
+    background: #fff !important;
+
+    .arco-modal-title {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+    }
+
+    .arco-modal-close-btn {
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 8px !important;
+      color: #94a3b8 !important;
+      background: transparent !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.2s !important;
+
+      &:hover {
+        background: #f1f5f9 !important;
+        color: #475569 !important;
+      }
+    }
+  }
+
+  // Modal 内容区
+  .arco-modal-body {
+    background: #fff !important;
+    padding: 20px 24px !important;
+    max-height: calc(100vh - 300px) !important;
+    overflow-y: auto !important;
+  }
+
+  // Modal 底部
+  .arco-modal-footer {
+    border-top: 0 !important;
+    padding: 16px 24px 20px !important;
+    background: #fff !important;
+
+    .arco-btn {
+      height: auto !important;
+      padding: 8px 18px !important;
+      border-radius: 10px !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: all 0.2s !important;
+
+      &.arco-btn-primary {
+        background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1) !important;
+        border: none !important;
+        color: #fff !important;
+        font-weight: 600 !important;
+        box-shadow: none !important;
+
+        &:hover {
+          opacity: 0.9 !important;
+          transform: none !important;
+          box-shadow: none !important;
+        }
+      }
+
+      &.arco-btn-secondary {
+        background: #fff !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #475569 !important;
+
+        &:hover {
+          background: #f8fafc !important;
+          color: #475569 !important;
+          border-color: #e2e8f0 !important;
+        }
+      }
+    }
+  }
+}
+
+// Drawer 抽屉样式（与弹窗视觉一致）
+.arco-drawer {
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1) !important;
+  background: #fff !important;
+
+  .arco-drawer-header {
+    border-bottom: 0 !important;
+    padding: 20px 24px !important;
+    background: #fff !important;
+
+    .arco-drawer-title {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+      width: 100% !important;
+    }
+
+    .arco-drawer-close-btn {
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 8px !important;
+      color: #94a3b8 !important;
+      background: transparent !important;
+      transition: all 0.2s !important;
+display: flex;
+align-items: center;
+justify-content: center;
+      &:hover {
+        background: #f1f5f9 !important;
+        color: #475569 !important;
+      }
+    }
+  }
+
+  .arco-drawer-body {
+    padding: 20px 24px !important;
+    background: #fff !important;
+  }
+
+  .arco-drawer-footer {
+    border-top: none !important;
+    padding: 16px 24px 20px !important;
+    background: #fff !important;
+
+    .arco-btn {
+      height: auto !important;
+      padding: 8px 18px !important;
+      border-radius: 10px !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: all 0.2s !important;
+    }
+
+    .arco-btn-primary {
+      background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1) !important;
+      border: none !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+      box-shadow: none !important;
+
+      &:hover {
+        opacity: 0.9 !important;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .arco-btn-secondary,
+    .arco-btn:not(.arco-btn-primary) {
+      background: #fff !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #475569 !important;
+
+      &:hover {
+        background: #f8fafc !important;
+        color: #475569 !important;
+        border-color: #e2e8f0 !important;
+      }
+    }
+  }
+}
+
+// Confirm 确认框样式
+.arco-modal-confirm {
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+
+  .arco-modal-header {
+    padding: 24px 24px 16px !important;
+  }
+
+  .arco-modal-body {
+    padding: 0 24px 24px !important;
+  }
+
+  .arco-modal-footer {
+    padding: 16px 24px 24px !important;
+  }
+}
+
+// 简化版 Modal（无标题）
+.arco-modal-simple {
+  border-radius: 16px !important;
+  padding: 0 !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+  .arco-modal-header{
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+  }
+
+  .arco-modal-body {
+    padding: 20px 24px !important;
+  }
+
+  .arco-modal-footer {
+    text-align: right !important;
+    margin-top: 0 !important;
+    border-top: none !important;
+    padding: 20px 24px !important;
+  }
+}

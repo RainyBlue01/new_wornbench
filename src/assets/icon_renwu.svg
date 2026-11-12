@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <style>.a,.b,.c{fill:none;}.b,.c{stroke:#333;}.b{stroke-linecap:round;stroke-linejoin:round;}</style>
+    </defs>
+    <rect class="a" width="16" height="16"/>
+    <g transform="translate(-5.975 -3)">
+        <path class="b"
+              d="M19.093,10.582V7.464L15.973,4H8.693A.693.693,0,0,0,8,4.693V17.164a.693.693,0,0,0,.693.693h4.16"/>
+        <circle class="c" cx="3" cy="3" r="3" transform="translate(13.951 12)"/>
+        <path class="b" d="M33,33v1.371h1.371" transform="translate(-16.329 -18.943)"/>
+        <path class="b" d="M30,4V7.429h3.429" transform="translate(-14.335)"/>
+    </g>
+</svg>

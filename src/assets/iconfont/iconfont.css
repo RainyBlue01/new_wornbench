@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3899797 */
+  src: url('iconfont.woff2?t=1718001457401') format('woff2'),
+       url('iconfont.woff?t=1718001457401') format('woff'),
+       url('iconfont.ttf?t=1718001457401') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fenjianhuoguanli:before {
+  content: "\e67d";
+}
+
+.icon-chukuguanli:before {
+  content: "\e67b";
+}
+
+.icon-danjuluzhi:before {
+  content: "\e67c";
+}
+
+.icon-qianshou:before {
+  content: "\e685";
+}
+
+.icon-rukuguanli:before {
+  content: "\e686";
+}
+
+.icon-tiaoboguanli:before {
+  content: "\e68c";
+}
+
+.icon-pandian:before {
+  content: "\e695";
+}
+
+.icon-chukusaomiao:before {
+  content: "\e696";
+}
+
+.icon-zuoyefenpei:before {
+  content: "\e697";
+}
+
+.icon-rukusaomiao:before {
+  content: "\e698";
+}
+
+.icon-zhongdaPOSxiaopiaosvg:before {
+  content: "\e699";
+}
+
+.icon-jianyichuweiguanlidanhaosvg:before {
+  content: "\e69d";
+}
+
+.icon-biaoqiandayinsvg:before {
+  content: "\e69f";
+}
+
+.icon-houcangguanlisvg:before {
+  content: "\e6a2";
+}
+
+.icon-xiaoshouguanlisvg:before {
+  content: "\e763";
+}
+

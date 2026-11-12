@@ -1,0 +1,52 @@
+.table {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    :deep(.arco-table){
+       border: 0px solid #e2e8f0;
+    border-radius: 8px; 
+    }
+  :deep(.arco-table-container){
+    border-radius: 8px;
+     border:0;
+     border-right: 0 !important;
+  }
+    :deep(.arco-table-th) {
+      background: #f8fafc !important;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      // padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+  
+    :deep(.arco-table-td) {
+      // padding: 14px 16px;
+      color: #334155;
+      font-size: 13px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+  
+    :deep(.arco-table-tr:hover .arco-table-td) {
+      background: #f8fafc;
+    }
+  
+    :deep(.arco-table-tr:last-child .arco-table-td) {
+      border-bottom: none;
+    }
+  
+    :deep(.arco-link) {
+      color: rgb(var(--primary-6));
+      font-weight: 500;
+      padding: 0;
+    }
+  
+    :deep(.arco-checkbox-checked .arco-checkbox-icon),
+    :deep(.arco-checkbox-indeterminate .arco-checkbox-icon) {
+      background-color: rgb(var(--primary-6));
+      border-color: rgb(var(--primary-6));
+    }
+  }

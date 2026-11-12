@@ -1,0 +1,40 @@
+.table {
+
+    :deep(.arco-table-container),
+    :deep(.arco-table-content) {
+        border: none;
+        border-radius: 0;
+    }
+
+    :deep(.arco-table-th) {
+        background: #f8fafc;
+        color: #475569;
+        font-size: 13px;
+        font-weight: 600;
+        border-bottom: 1px solid #e2e8f0;
+        border-right: none !important;
+        border-left: none !important;
+        border-top: none !important;
+        // padding: 10px 12px;
+    }
+
+    :deep(.arco-table-td) {
+        font-size: 13px;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+        border-right: none !important;
+        border-left: none !important;
+        border-top: none !important;
+        // padding: 10px 12px;
+        background: transparent;
+    }
+
+    :deep(.arco-table-border .arco-table-th),
+    :deep(.arco-table-border .arco-table-td) {
+        border-right: none;
+    }
+
+    :deep(.arco-table-tr:hover .arco-table-td) {
+        background: #f8fafc;
+    }
+}

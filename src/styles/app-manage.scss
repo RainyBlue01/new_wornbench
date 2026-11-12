@@ -1,0 +1,209 @@
+// 应用管理弹窗 — 对齐 form-fill.html app-manage / app-form-*
+
+@use './form-controls.scss' as formControls;
+
+$app-border: #f1f5f9;
+$app-primary: formControls.$form-control-primary;
+$app-primary-text: #2563eb;
+$app-input-bg: formControls.$form-control-bg;
+$app-input-border: formControls.$form-control-border;
+$app-text: #334155;
+$app-label: #475569;
+$app-muted: #94a3b8;
+$app-focus-ring: 0 0 0 2px rgba(59, 130, 246, 0.08);
+
+.app-manage-page {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 36px;
+}
+
+@mixin app-manage-scrollbar {
+  min-height: 358px;
+  scrollbar-color: rgba(148, 163, 184, 0.8) transparent;
+
+  // &::-webkit-scrollbar {
+  //   width: 4px;
+  //   height: 10px;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   border-radius: 2px;
+  //   background-color: rgba(0, 0, 0, 0.16) !important;
+  // }
+
+  // &::-webkit-scrollbar-thumb:hover {
+  //   background: rgba(100, 116, 139, 0.85);
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   border-radius: 2px;
+  // }
+}
+
+.app-manage-page-title {
+  margin: 0 0 24px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+@mixin app-manage-form {
+  :deep(.arco-form-item) {
+    margin-bottom: 20px;
+  }
+
+  :deep(.arco-form-item-label) {
+    font-size: 13px;
+    font-weight: 500;
+    color: $app-label;
+    // margin-bottom: 6px;
+    padding: 0;
+    line-height: 1.5;
+  }
+
+  :deep(.arco-form-item-label-required-symbol) {
+    color: #ef4444;
+  }
+
+  :deep(.arco-input-wrapper),
+  :deep(.arco-textarea-wrapper),
+  :deep(.arco-select-view-single),
+  :deep(.arco-select-view-multiple),
+  :deep(.arco-picker) {
+    background: $app-input-bg;
+    border: 1px solid $app-input-border;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  :deep(.arco-input),
+  :deep(.arco-textarea),
+  :deep(.arco-select-view-input),
+  :deep(.arco-picker-input input) {
+    font-size: 13px;
+    color: $app-text;
+    background: transparent;
+  }
+
+  :deep(.arco-input-wrapper),
+  :deep(.arco-select-view-single),
+  :deep(.arco-select-view-multiple),
+  :deep(.arco-picker) {
+    min-height: 40px;
+  }
+
+  :deep(.arco-textarea) {
+    min-height: 72px;
+    resize: vertical;
+  }
+
+  :deep(.arco-input-wrapper:focus-within),
+  :deep(.arco-textarea-wrapper:focus-within),
+  :deep(.arco-select-view-focus),
+  :deep(.arco-picker-focused) {
+    background: #fff;
+    border-color: $app-primary;
+    box-shadow: $app-focus-ring;
+  }
+
+  :deep(.arco-input-word-limit),
+  :deep(.arco-textarea-word-limit) {
+    font-size: 11px;
+    color: $app-muted;
+    margin-top: 4px;
+  }
+
+  :deep(.arco-form-item-extra) {
+    font-size: 12px;
+    color: $app-muted;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+}
+
+@mixin app-manage-input-only {
+  :deep(.arco-input-wrapper) {
+    background: $app-input-bg;
+    border: 1px solid $app-input-border;
+    border-radius: 8px;
+    transition: all 0.2s;
+    min-height: 40px;
+
+    &:focus-within {
+      background: #fff;
+      border-color: $app-primary;
+      box-shadow: $app-focus-ring;
+    }
+  }
+
+  :deep(.arco-input) {
+    font-size: 13px;
+    color: $app-text;
+    background: transparent;
+  }
+}
+
+@mixin app-manage-tag-select {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+  padding: 4px 10px;
+  color: $app-text;
+  font-size: 13px;
+  background-color: $app-input-bg;
+  border: 1px solid $app-input-border;
+  border-radius: 8px;
+  cursor: text;
+  transition: all 0.2s;
+
+  &:hover,
+  &:focus-within {
+    border-color: $app-primary;
+    background: #fff;
+    box-shadow: $app-focus-ring;
+  }
+
+
+}
+
+@mixin app-manage-org-tabs {
+  :deep(.arco-tabs-nav) {
+    margin-bottom: 12px;
+  }
+
+  :deep(.arco-tabs-nav::before) {
+    background: #e2e8f0;
+    height: 1px;
+  }
+
+  :deep(.arco-tabs-tab) {
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  :deep(.arco-tabs-tab:hover) {
+    color: #334155;
+  }
+
+  :deep(.arco-tabs-tab-active),
+  :deep(.arco-tabs-tab-active:hover) {
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  :deep(.arco-tabs-nav-ink) {
+    background: rgb(var(--primary-6));
+    height: 2px;
+  }
+
+  :deep(.arco-tabs-content) {
+    padding-top: 12px;
+  }
+}

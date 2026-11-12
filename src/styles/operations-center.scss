@@ -1,0 +1,724 @@
+// 运维中心原型（运维中心.html）统一样式
+
+@use './form-controls.scss' as formControls;
+
+.ops-page {
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+
+.ops-main {
+  max-width: 1400px;
+  margin: 20px auto;
+  // padding: 0 24px 40px;
+}
+
+// 顶部统计卡片（运维中心.html .stat-grid / .stat-card）
+.ops-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.ops-stat-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 22px;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  box-sizing: border-box;
+
+  &__body {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 20px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 4px;
+    line-height: 42px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  &--blue .stat-number {
+    color: #2563eb;
+  }
+
+  &--blue .stat-icon {
+    background: #eff6ff;
+    color: rgb(var(--primary-6));
+  }
+
+  &--green .stat-number {
+    color: #16a34a;
+  }
+
+  &--green .stat-icon {
+    background: #f0fdf4;
+    color: #22c55e;
+  }
+
+  &--red .stat-number {
+    color: #dc2626;
+  }
+
+  &--red .stat-icon {
+    background: #fef2f2;
+    color: #ef4444;
+  }
+
+  &--purple .stat-number {
+    color: #7c3aed;
+  }
+
+  &--purple .stat-icon {
+    background: #f3e8ff;
+    color: #8b5cf6;
+  }
+
+  &--gray .stat-number {
+    color: #64748b;
+  }
+
+  &--gray .stat-icon {
+    background: #f1f5f9;
+    color: #94a3b8;
+  }
+}
+
+.ops-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 12px 4px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.ops-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.ops-card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ops-card-header-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ops-card-header-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: auto;
+
+  &.ops-filter-bar {
+    margin-bottom: 0;
+  }
+}
+
+.ops-card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ops-card-hint {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.ops-card-body {
+  padding: 16px 20px 20px;
+
+  &--empty {
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.ops-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ops-nav-btn {
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  white-space: nowrap;
+  font-family: inherit;
+  background: transparent;
+  color: #64748b;
+
+  &:hover {
+    background: #f1f5f9;
+    color: #334155;
+  }
+
+  &--active {
+    background: #dbeafe;
+    color: #2563eb;
+    font-weight: 600;
+
+    &:hover {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+  }
+}
+
+.ops-btn-ghost-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  transition: all 0.2s;
+  font-family: inherit;
+
+  &:hover {
+    background: #f1f5f9;
+    color: #334155;
+  }
+}
+
+.ops-btn-primary-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1);
+  color: #fff;
+  transition: all 0.2s;
+  font-family: inherit;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.ops-table-wrap {
+  overflow-x: auto;
+}
+
+@mixin ops-filter-control {
+
+  :deep(.arco-input-wrapper),
+  :deep(.arco-select-view) {
+    border-radius: formControls.$form-control-radius;
+    background: formControls.$form-control-bg-disabled;
+    border-color: formControls.$form-control-border;
+    font-size: 13px;
+  }
+
+  :deep(.arco-input-wrapper:focus-within),
+  :deep(.arco-select-view-focus) {
+    background: formControls.$form-control-bg;
+    border-color: formControls.$form-control-primary;
+    box-shadow: formControls.$form-control-focus-shadow;
+  }
+
+  :deep(.arco-select) {
+    width: 100%;
+  }
+}
+
+// 与 doCenter/wrapperTable.vue 筛选控件一致
+.rounded-input.arco-input-wrapper,
+.arco-select.rounded-input .arco-select-view {
+  background: #f5f6f7 !important;
+  border: 1px solid transparent !important;
+  border-radius: 12px !important;
+  font-size: 13px;
+
+  .arco-input {
+    background: transparent;
+    border: none;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+
+  &:hover,
+  &:focus-within,
+  &.arco-input-focus,
+  &.arco-select-view-focus {
+    background: #f5f6f7 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+.rounded-input {
+
+  .arco-input-prefix,
+  .arco-icon {
+    color: #9ca3af;
+  }
+}
+
+.ops-filter-input {
+  @include ops-filter-control;
+
+  &--200 {
+    width: 200px;
+  }
+
+  &--140 {
+    width: 140px;
+  }
+
+  &--120 {
+    width: 120px;
+  }
+}
+
+.task-tab-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+// 运维中心列表表格（流程中心 / Webhook / 任务管理）
+// 注：全局 scss 不可用 :deep，需用后代选择器命中 Arco Table 内部节点
+.ops-page .ops-table-wrap .ops-data-table {
+
+  .arco-table-container,
+  .arco-table-content {
+    border: none;
+    border-radius: 0;
+  }
+
+  .arco-table {
+    white-space: nowrap;
+  }
+
+  .arco-table-th {
+    background: #f8fafc !important;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid #e2e8f0;
+    border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+  }
+
+  .arco-table-td {
+    color: #334155;
+    font-size: 13px;
+    border-bottom: 1px solid #f1f5f9;
+    border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+    vertical-align: middle;
+  }
+
+  .arco-table-border .arco-table-th,
+  .arco-table-border .arco-table-td {
+    border-right: none;
+  }
+
+  .arco-table-tr:hover .arco-table-td {
+    background: #f8fafc;
+  }
+
+  .arco-table-cell {
+    padding: 12px !important;
+  }
+
+  .arco-table-th .arco-table-cell {
+    padding: 10px 12px !important;
+  }
+}
+
+.ops-status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+
+  &--pending {
+    color: rgb(var(--arcoblue-6));
+    background-color: rgb(var(--arcoblue-1));
+  }
+
+  &--success {
+    color: rgb(var(--green-6));
+    background-color: rgb(var(--green-1));
+  }
+
+  &--fail {
+    background-color: #fef2f2;
+    color: #dc2626;
+  }
+
+  &--ended {
+    color: rgb(var(--green-6));
+    background-color: rgb(var(--green-1));
+  }
+
+  &--running {
+    color: rgb(var(--arcoblue-6));
+    background-color: rgb(var(--arcoblue-1));
+  }
+
+  &--warn {
+    background: #fff7ed;
+    color: #ea580c;
+  }
+}
+
+.ops-cell-app-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ops-cell-url {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.ops-cell-duration {
+  &--success {
+    color: #16a34a;
+  }
+
+  &--fail {
+    color: #dc2626;
+  }
+
+  &--pending {
+    color: #ca8a04;
+  }
+}
+
+.ops-cell-retry {
+  color: #94a3b8;
+
+  &--warn {
+    color: #ca8a04;
+    font-weight: 600;
+  }
+
+  &--fail {
+    color: #dc2626;
+    font-weight: 600;
+  }
+}
+
+.ops-action-group {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: flex-start;
+}
+
+.ops-detail-modal {
+  :deep(.arco-modal) {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  :deep(.arco-modal-header) {
+    padding: 20px 24px 0;
+    border-bottom: none;
+  }
+
+  :deep(.arco-modal-title) {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  :deep(.arco-modal-body) {
+    padding: 16px 24px 8px;
+  }
+
+  :deep(.arco-modal-footer) {
+    padding: 8px 24px 20px;
+    border-top: none;
+  }
+}
+
+.ops-detail-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 13px;
+  margin-bottom: 16px;
+
+  .label {
+    color: #94a3b8;
+  }
+
+  .value {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .value-normal {
+    color: #334155;
+  }
+}
+
+.ops-detail-section-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.ops-log-panel {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 12px;
+  color: #e2e8f0;
+  overflow-y: auto;
+  line-height: 1.8;
+
+  pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+}
+
+.ops-modal-btn-close {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  font-family: inherit;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f1f5f9;
+    color: #334155;
+  }
+}
+
+.ops-action-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  transition: all 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+
+  &:hover {
+    background: #fee2e2 !important;
+    // color: #2563eb;
+  }
+
+  &--primary {
+    color: #2563eb;
+
+  }
+
+  &--warn {
+    color: #d97706;
+
+  }
+
+  &--danger {
+    color: #dc2626;
+
+
+  }
+}
+
+.ops-event-badge {
+  font-size: 12px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.ops-cycle-badge {
+  font-size: 12px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.ops-empty-state {
+  text-align: center;
+  color: #94a3b8;
+
+  &__img {
+    width: 200px;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+
+  p {
+    margin: 0;
+    font-size: 13px;
+  }
+}
+
+// 运维中心分页（与原始数据 PersonPagination + 运维中心.html 原型一致）
+.ops-page .ops-pagination {
+  margin-top: 16px;
+  flex-shrink: 0;
+
+  .person-pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+
+    &__count {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-right: auto;
+    }
+
+    &__jump {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #64748b;
+
+      button {
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+        cursor: pointer;
+        font-family: inherit;
+
+        &:hover {
+          background: #e2e8f0;
+        }
+      }
+    }
+
+    .arco-pagination-item {
+      min-width: 28px;
+      height: 28px;
+      line-height: 26px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .arco-pagination-item-active {
+      background: rgb(var(--primary-6));
+      color: #fff;
+      border-color: rgb(var(--primary-6));
+    }
+
+    .arco-pagination-item:not(.arco-pagination-item-active):hover {
+      border-color: rgb(var(--primary-6));
+      color: rgb(var(--primary-6));
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .ops-card-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ops-card-header-right {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,238 @@
+$filter-border: #f1f5f9;
+$filter-primary: rgb(var(--primary-6));
+
+@mixin app-form-control {
+  border-radius: 8px;
+  border-color: #e2e8f0;
+  background: #f8fafc;
+  font-size: 13px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+}
+
+@mixin app-form-control-focus {
+  background: #fff;
+  border-color: $filter-primary;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+.condition-filter-modal {
+  :deep(.arco-modal) {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  :deep(.arco-modal-header) {
+    border-bottom: 1px solid $filter-border;
+    padding: 20px 28px 16px;
+  }
+
+  :deep(.arco-modal-title) {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  :deep(.arco-modal-body) {
+    padding: 24px 28px;
+  }
+
+  :deep(.arco-modal-footer) {
+    border-top: 1px solid $filter-border;
+    padding: 16px 28px 20px;
+  }
+}
+
+.condition-wrapper {
+  .condition-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .condition-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid $filter-border;
+
+    .condition-field {
+      flex: 1;
+      min-width: 140px;
+
+      &--readonly {
+        display: flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 12px;
+        color: #1e293b;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @include app-form-control;
+      }
+
+      :deep(.arco-select-view) {
+        @include app-form-control;
+
+        &.arco-select-view-focus {
+          @include app-form-control-focus;
+        }
+      }
+    }
+
+    .condition-rule {
+      min-width: 130px;
+      width: 130px;
+      flex-shrink: 0;
+
+      :deep(.arco-select-view) {
+        @include app-form-control;
+
+        &.arco-select-view-focus {
+          @include app-form-control-focus;
+        }
+      }
+    }
+
+    .condition-value {
+      flex: 1;
+      min-width: 120px;
+
+      :deep(.formLogics) {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      :deep(.arco-select-view),
+      :deep(.arco-input-wrapper) {
+        @include app-form-control;
+      }
+
+      :deep(.arco-select-view-focus),
+      :deep(.arco-input-wrapper:focus-within) {
+        @include app-form-control-focus;
+      }
+
+      :deep(.inputLogics),
+      :deep(.selectLogics),
+      :deep(.dateLogics),
+      :deep(.userLogics),
+      :deep(.numberLogics),
+      :deep(.timeLogics) {
+        margin-left: 0 !important;
+        width: 100%;
+      }
+    }
+
+    .condition-remove,
+    .condition-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .condition-remove {
+      &:hover {
+        background: #fee2e2;
+        color: #ef4444;
+      }
+    }
+
+    .condition-action-btn {
+      &:hover {
+        background: #eff6ff;
+        color: $filter-primary;
+      }
+    }
+  }
+
+  .condition-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px dashed #bfdbfe;
+    background: #eff6ff;
+    color: $filter-primary;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #dbeafe;
+    }
+
+    :deep(svg) {
+      font-size: 14px;
+    }
+  }
+}
+
+.warning-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .warning-plan-item {
+    .warning-plan-desc {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      color: #475569;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .warning-color-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .warning-plan-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+  }
+
+  .warning-form-tip {
+    margin: 0;
+    font-size: 13px;
+    color: #94a3b8;
+  }
+
+  .warning-color-picker {
+    flex-shrink: 0;
+
+    :deep(.arco-color-picker-preview) {
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+  }
+}

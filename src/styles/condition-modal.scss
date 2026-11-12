@@ -1,0 +1,396 @@
+$condition-border: #f1f5f9;
+$condition-primary: rgb(var(--primary-6));
+
+@mixin condition-form-control {
+  border-radius: 8px;
+  border-color: #e2e8f0;
+  background: #f8fafc;
+  font-size: 13px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+}
+
+@mixin condition-form-control-focus {
+  background: #fff;
+  border-color: $condition-primary;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+@mixin condition-modal-shell {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+  .arco-modal-header {
+    border-bottom: 1px solid $condition-border;
+    padding: 20px 28px 16px;
+  }
+
+  .arco-modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  .arco-modal-body {
+    padding: 24px 28px;
+  }
+
+  .arco-modal-footer {
+    border-top: 1px solid $condition-border;
+    padding: 16px 28px 20px;
+
+    .arco-btn {
+      height: auto;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .arco-btn-secondary,
+    .arco-btn:not(.arco-btn-primary) {
+      background: #f8fafc;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+
+      &:hover {
+        background: #f1f5f9;
+        color: #475569;
+      }
+    }
+
+    .arco-btn-primary {
+      background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1);
+      border: none;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+
+      &:hover {
+        opacity: 0.92;
+      }
+    }
+  }
+}
+
+@mixin condition-wrapper-styles {
+  .condition-match {
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #475569;
+
+    :deep(.arco-radio-group) {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    :deep(.arco-radio-label) {
+      font-size: 13px;
+      color: #475569;
+    }
+
+    :deep(.arco-radio-checked .arco-radio-icon) {
+      background-color: $condition-primary;
+      border-color: $condition-primary;
+    }
+
+    :deep(.arco-select-view) {
+      @include condition-form-control;
+
+      &.arco-select-view-focus {
+        @include condition-form-control-focus;
+      }
+    }
+  }
+
+  .condition-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .condition-empty {
+    margin: 0;
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+    padding: 16px 0;
+  }
+
+  .condition-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid $condition-border;
+
+    .condition-field {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .condition-rule {
+      min-width: 130px;
+      width: 130px;
+      flex-shrink: 0;
+    }
+
+    .condition-value {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .condition-expression {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    :deep(.arco-select-view),
+    :deep(.arco-input-wrapper) {
+      @include condition-form-control;
+    }
+
+    :deep(.arco-select-view-focus),
+    :deep(.arco-input-wrapper:focus-within) {
+      @include condition-form-control-focus;
+    }
+
+    :deep(.formLogics) {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    :deep(.inputLogics),
+    :deep(.selectLogics),
+    :deep(.dateLogics),
+    :deep(.userLogics),
+    :deep(.numberLogics),
+    :deep(.timeLogics) {
+      margin-left: 0 !important;
+      width: 100%;
+    }
+
+    .condition-remove {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #fee2e2;
+        color: #ef4444;
+      }
+    }
+  }
+
+  .condition-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px dashed #bfdbfe;
+    background: #eff6ff;
+    color: $condition-primary;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #dbeafe;
+    }
+
+    :deep(svg) {
+      font-size: 14px;
+    }
+  }
+
+  .condition-show-fields {
+    margin-top: 20px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid $condition-border;
+
+    .condition-show-fields__label {
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    :deep(.arco-select-view) {
+      @include condition-form-control;
+
+      &.arco-select-view-focus {
+        @include condition-form-control-focus;
+      }
+    }
+  }
+}
+
+@mixin condition-rule-list {
+  .condition-rule-list {
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid $condition-border;
+    max-height: 220px;
+    overflow-y: auto;
+
+    .condition-rule-list__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid $condition-border;
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+
+    .condition-rule-list__content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .condition-rule-list__line {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .condition-rule-list__join {
+      margin-top: 4px;
+      font-size: 12px;
+      color: $condition-primary;
+      font-weight: 500;
+    }
+
+    .condition-rule-list__summary {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .condition-rule-list__actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .condition-rule-list__action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #f1f5f9;
+        color: #475569;
+      }
+
+      &.is-danger:hover {
+        background: #fee2e2;
+        color: #ef4444;
+      }
+    }
+  }
+
+  .condition-empty-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    margin-bottom: 20px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px dashed $condition-border;
+
+    img {
+      width: 160px;
+      margin-bottom: 12px;
+    }
+
+    .condition-empty-box__text {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  }
+}
+
+@mixin condition-footer-styles {
+  .condition-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .modal-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    white-space: nowrap;
+  }
+
+  .modal-btn-ghost {
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+
+    &:hover {
+      background: #f1f5f9;
+      color: #475569;
+    }
+  }
+
+  .modal-btn-primary {
+    background: linear-gradient(135deg, rgb(var(--primary-6)), #6366f1);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+
+    &:hover {
+      opacity: 0.92;
+    }
+  }
+}
